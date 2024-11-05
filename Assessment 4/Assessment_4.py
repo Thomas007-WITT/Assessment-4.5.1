@@ -20,13 +20,14 @@ class BackEnd():
             # Fetch all rows from the result set
             rows = cursor.fetchall()
 
-            # Print column headers
-            columns = [column[0] for column in cursor.description]
-            print('\t'.join(columns))
+            print(f'{"Company_name":<40}{"Industry":<40}{"Year_revenue":<20}{"Revenue_growth":<20}{"Number_of_employees":<30}{"Headquarters":<30}{"Company_found_date":<20}')
 
             # Print each row
             for row in rows:
-                print('\t'.join(str(item) for item in row))
+                 CoFoundDate = row.Foundation.strftime("%d-%m-%Y")
+                
+                 List_company = f'{row.Company_name:<40}{row.Industry:<40}{row.Year_revenue:<20}{row.Revenue_growth:<20}{row.Number_of_employees:<30}{row.Headquarters:<30}{CoFoundDate:<20}'
+                 print(List_company)
 
         except pyodbc.Error as e:
             print(f"Error accessing database: {e}")
@@ -95,8 +96,8 @@ class BackEnd():
             print('\t'.join(columns))
 
             # Print each row
-            for row in rows:
-                print('\t'.join(str(item) for item in row))
+            # for row in rows:
+                # print('\t'.join(str(item) for item in row))
 
         except pyodbc.Error as e:
             print(f"Error accessing database: {e}")
@@ -127,15 +128,15 @@ class BackEnd():
 
             # Print column headers
             columns = [column[0] for column in cursor.description]
-            print(f'{"Company_name":<30}{"Industry":<30}{"Year_revenue":<20}{"Revenue_growth":<20}{"Number_of_employees":<30}{"Headquarters":<20}{"Company_found_date":<20}')
+            print(f'{"Company_name":<50}{"Industry":<30}{"Year_revenue":<20}{"Revenue_growth":<20}{"Number_of_employees":<30}{"Headquarters":<20}{"Company_found_date":<20}')
 
             # Print each row
             for row in rows:
                 # print('\t'.join(str(item) for item in row))
 
-                CoFoundDate = row.Company_found_date.strftime("%d-%m-%Y")
+                CoFoundDate = row.Foundation.strftime("%d-%m-%Y")
                 
-                List_company = f'{row.Company_name:<30}{row.Industry:<30}{row.Year_revenue:<20}{row.Revenue_growth:<20}{row.Number_of_employees:<30}{row.Headquarters:<20}{CoFoundDate:<20}'
+                List_company = f'{row.Company_name:<50}{row.Industry:<30}{row.Year_revenue:<20}{row.Revenue_growth:<20}{row.Number_of_employees:<30}{row.Headquarters:<20}{CoFoundDate:<20}'
                 print(List_company)
                
         except pyodbc.Error as e:

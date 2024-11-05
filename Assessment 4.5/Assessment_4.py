@@ -11,22 +11,26 @@ class BackEnd():
        # create a cursor object to interact with the database
         cursor = conn.cursor()
 
-        sqlComm = 'SELECT * FROM Company_Data;'
+        sqlComm = 'SELECT * FROM Company_Data;' # Replace YourTableName with your table name
    
         try:
             # Execute a SELECT query
-            cursor.execute(sqlComm)  # Replace YourTableName with your table name
+            cursor.execute(sqlComm)
 
             # Fetch all rows from the result set
             rows = cursor.fetchall()
 
             # Print column headers
             columns = [column[0] for column in cursor.description]
-            print('\t'.join(columns))
+            print(f'{"Company Name":<30}{"Industry":<30}{"Year Revenue":<20}{"Revenue Growth":<20}{"Number of employees":<20}{"Headquarters":<20}{"Foundation":<20}')
 
             # Print each row
             for row in rows:
-                print('\t'.join(str(item) for item in row))
+                
+                CoFoundDate=row.Foundation.strftime("%d-%m-%Y")
+                
+                Company_Data = f'{row.Company_name:<30}{row.Industry:<30}{row.Year_revenue:<20}{row.Revenue_growth:<20}{row.Number_of_employees:<20}{row.Headquarters:<20}{CoFoundDate:<20}'
+                print(Company_Data)
 
         except pyodbc.Error as e:
             print(f"Error accessing database: {e}")
